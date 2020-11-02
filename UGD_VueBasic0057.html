@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unguided VueBasic_0057</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="vue.js"></script> 
+  </head>
+  <body>
+      <div id="body">
+        <h1>Tebak Angka 1-10</h1>
+        <h2>Kesempatan: {{chance}}</h2>
+        <input v-model="number">
+        <button @click="getRandomNumber">Cek Angka</button>
+        <br>
+        <p>{{message}}</p>
+      </div>
+      <div class="footer">
+          <p>{{nama}} | {{npm}} | {{kelas}}</p>
+      </div>
+  </body>
+  <script>
+      new Vue({
+          el:"#body",
+          data:{
+            number:0,
+            chance:3,
+          },
+          methods: {
+            getRandomNumber(){
+            return Math.floor(Math.random()*(10-1+1))+1;
+            }
+          },
+        computed: {
+            message() {
+            if (this.number==this.getRandomNumber()) {
+                return 'Tebakan Baner!';
+            } else {
+                this.chance--;
+                return 'Tebakan Salah! ';
+                if(this.chance==0)
+                alert('Ksempatan Habis!');
+            }
+
+        }
+        },
+        el:".footer",
+        data:{
+            nama:"Christian D.S",
+            npm:190710057,
+            kelas: "B"
+        },
+        });
+      </script>
+</html>
