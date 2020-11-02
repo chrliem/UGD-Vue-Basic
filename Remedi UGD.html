@@ -38,6 +38,9 @@
             <input type="button" class="btn btn-warning" name="restart" value="Ulangi?" @click="reload()"/>
         </div>
     </form>
+    <div class="footer">
+        <p>{{nama}} | {{npm}} | {{kelas}}</p>
+    </div>
 </div>
 </body>
 <script>
@@ -47,7 +50,10 @@ new Vue({
       randNumber: -1,
       chance: 3,
       message: '.',
-      guess : ''
+      guess : '',
+     nama:'Christian D.S',
+      npm:'190710057',
+      kelas: 'B'
     },
     methods: {
       getRandomNumber:function() {
