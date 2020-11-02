@@ -11,8 +11,8 @@
       <div id="body">
         <h1>Tebak Angka 1-10</h1>
         <h2>Kesempatan: {{chance}}</h2>
-        <input v-model="number">
-        <button @click="getRandomNumber">Cek Angka</button>
+        <input v-model="num" name="input">
+        <button @click="getInput()">Cek Angka</button>
         <br>
         <p>{{message}}</p>
       </div>
@@ -24,33 +24,36 @@
       new Vue({
           el:"#body",
           data:{
-            number:0,
+            num:undefined,
+            randNumber:undefined,
             chance:3,
           },
           methods: {
+            getInput(input){
+              if(this.chance<=3 && this.chance>=0)
+              this.randNumber=getRandomNumber();
+              this.number=input;
+            },
             getRandomNumber(){
             return Math.floor(Math.random()*(10-1+1))+1;
             }
           },
         computed: {
             message() {
-            if (this.number==this.getRandomNumber()) {
-                return 'Tebakan Baner!';
+            if (this.number==this.randNumber) {
+                return 'Tebakan Benar!';
             } else {
                 this.chance--;
                 return 'Tebakan Salah! ';
                 if(this.chance==0)
                 alert('Ksempatan Habis!');
+                
+                
             }
 
         }
         },
-        el:".footer",
-        data:{
-            nama:"Christian D.S",
-            npm:190710057,
-            kelas: "B"
-        },
+
         });
       </script>
 </html>

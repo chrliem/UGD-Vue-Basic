@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remedi VueBasic_0057</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="vue.js"></script> 
+  </head>
+  <body>
+    <div id="body">
+    <form>
+      <div class="attempt" v-if="message=='.'">
+          <h1>Tebak Angka 1-10</h1>
+          <p> Chance : {{chance}}</p><br>
+          <input type="text" v-model="guess" name="input"></input><br><br>
+          <input type="button" class="btn btn-primary" @click="checkInput()" value="Cek Angka"/>
+        </div>
+        <div class="attempt" v-if="message=='Benar'">
+            <div class="alert alert-success" role="alert" style="width:50%; ">
+                <p>Tebakan Benar! Jawaban:{{randNumber}} </p>
+            </div>
+            <input type="button" class="btn btn-warning" name="restart" value="Ulangi?" @click="reload()"/>
+        </div>
+        <div class="attempt"  v-if="message=='Salah'">
+            <div class="alert alert-danger" role="alert" style="width:50%; ">
+                <p>Tebakan Salah! {{chance}} tersisa!</p>
+                <p> Chance : {{chance}}</p><br>
+            </div>
+           <input type="text" v-model="guess" name="input"></input><br><br>
+           <input type="button" class="btn btn-primary" @click="checkInput()" value="Cek Angka"/>
+        </div>
+        <div class="attempt" v-if="message=='Gagal'">
+            <div class="alert alert-danger" role="alert" style="width:50%; ">
+                <p> Kesempatan Habis!</p><br>
+                <p> Jawaban: {{randNumber}} </p><br>
+            </div>
+            <input type="button" class="btn btn-warning" name="restart" value="Ulangi?" @click="reload()"/>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+new Vue({
+    el: '#body',
+    data: {
+      randNumber: -1,
+      chance: 3,
+      message: '.',
+      guess : ''
+    },
+    methods: {
+      getRandomNumber:function() {
+        do {
+          this.randNumber = Math.ceil(Math.random()*10);
+        } while (this.randNumber>10 || this.randNumber<1);
+      },
+      checkInput:function(input) {
+		    if (this.randNumber==-1)
+			    this.getRandomNumber();			  
+           let number=parseInt(this.guess);
+        this.guess="";
+        number=Math.ceil(number);
+        if (number>=1 && number<=10) {
+          this.chance--;
+          if (number==this.randNumber) {
+            this.message="Benar";
+          }
+          else {
+            if (this.chance==0) {
+             this.message="Gagal";
+            }
+            else {
+              if (number!=this.randNumber) {
+                this.message="Salah";
+                }
+              }
+            }
+          form.reset ();
+        }
+        else {
+          alert('Angka hanya boleh 1 - 10!');
+          form.reset ();
+        }
+      },
+      reload: function() {
+        this.message = ".";
+        this.getRandomNumber();
+        this.chance = 3;
+      }      
+    }
+  });
+app.getRandomNumber();
+</script>
